@@ -52,6 +52,10 @@ it("assignment", () => {
   expect(buildVisFromSource("x = 'something'")).toMatchSnapshot();
 });
 
+it("assignment and binary", () => {
+  expect(buildVisFromSource("x = 2 + 1")).toMatchSnapshot();
+});
+
 it("conditional expression", () => {
   expect(buildVisFromSource("a ? b : c")).toMatchSnapshot();
 });

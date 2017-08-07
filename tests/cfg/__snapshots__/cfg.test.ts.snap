@@ -126,7 +126,6 @@ Object {
     Object {
       "id": 3,
       "label": "START
-r
 a
 <a>",
       "physics": false,
@@ -304,7 +303,6 @@ Object {
     Object {
       "id": 3,
       "label": "START
-r
 a
 <a>",
       "physics": false,
@@ -398,7 +396,6 @@ Object {
     Object {
       "id": 1,
       "label": "START
-x
 1
 2
 foo
@@ -431,9 +428,37 @@ Object {
     Object {
       "id": 1,
       "label": "START
-x
 'something'
 x = 'something'",
+      "physics": false,
+    },
+  ],
+}
+`;
+
+exports[`assignment and binary 1`] = `
+Object {
+  "edges": Array [
+    Object {
+      "arrows": "to",
+      "from": 1,
+      "id": 0,
+      "to": 0,
+    },
+  ],
+  "nodes": Array [
+    Object {
+      "id": 0,
+      "label": "END",
+      "physics": false,
+    },
+    Object {
+      "id": 1,
+      "label": "START
+2
+1
+2 + 1
+x = 2 + 1",
       "physics": false,
     },
   ],
@@ -500,7 +525,6 @@ Object {
     Object {
       "id": 4,
       "label": "START
-a
 b
 <b ? c : d>",
       "physics": false,
@@ -2003,8 +2027,7 @@ Object {
     },
     Object {
       "id": 1,
-      "label": "x
-1
+      "label": "1
 x=1",
       "physics": false,
     },
@@ -2015,8 +2038,7 @@ x=1",
     },
     Object {
       "id": 3,
-      "label": "x
-true
+      "label": "true
 x=true
 <for(x=0;x=true;x=1)>",
       "physics": false,
@@ -2024,7 +2046,6 @@ x=true
     Object {
       "id": 4,
       "label": "START
-x
 0
 x=0",
       "physics": false,
@@ -2113,7 +2134,6 @@ Object {
     Object {
       "id": 5,
       "label": "START
-r
 a
 <a>",
       "physics": false,
@@ -3429,7 +3449,6 @@ Object {
     Object {
       "id": 1,
       "label": "START
-x
 function() {foo ();}
 x = function() {foo ();}",
       "physics": false,
@@ -3457,7 +3476,6 @@ Object {
     Object {
       "id": 1,
       "label": "START
-x
 (a, b) => {foo();}
 x = (a, b) => {foo();}",
       "physics": false,
@@ -3485,7 +3503,6 @@ Object {
     Object {
       "id": 1,
       "label": "START
-x
 class A { foo(){ y } }
 x = class A { foo(){ y } }",
       "physics": false,
@@ -3838,7 +3855,6 @@ Object {
     Object {
       "id": 1,
       "label": "START
-x
 a
 a[]
 x = a[]",
@@ -3867,7 +3883,6 @@ Object {
     Object {
       "id": 1,
       "label": "START
-x
 a
 b
 a[b]
@@ -5205,7 +5220,6 @@ Object {
     Object {
       "id": 1,
       "label": "START
-x
 A
 new A
 x = new A",
@@ -5234,7 +5248,6 @@ Object {
     Object {
       "id": 1,
       "label": "START
-x
 A
 1
 2
@@ -5326,7 +5339,6 @@ b
 locVarName1
 locVarName
 (locVarName)
-locVarName2
 42
 locVarName2 = 42
 {
@@ -5474,7 +5486,6 @@ obj = {
     Object {
       "id": 7,
       "label": "START
-obj
 c
 <c ? 1 : 2>",
       "physics": false,
@@ -5534,7 +5545,6 @@ r = a < (b && c)",
     Object {
       "id": 3,
       "label": "START
-r
 a
 b
 <b>",
@@ -5680,7 +5690,6 @@ Object {
     Object {
       "id": 1,
       "label": "START
-x
 y
 y--
 x = y--",
@@ -5736,7 +5745,6 @@ Object {
     Object {
       "id": 1,
       "label": "START
-x
 y
 +y
 x = +y",
@@ -5765,7 +5773,6 @@ Object {
     Object {
       "id": 1,
       "label": "START
-x
 a
 a.b
 x = a.b",
@@ -6000,7 +6007,6 @@ Object {
     Object {
       "id": 1,
       "label": "START
-r
 a
 b
 a < b
@@ -6030,7 +6036,6 @@ Object {
     Object {
       "id": 1,
       "label": "START
-r
 a
 b
 a <= b
@@ -6060,7 +6065,6 @@ Object {
     Object {
       "id": 1,
       "label": "START
-r
 a
 b
 a > b
@@ -6090,7 +6094,6 @@ Object {
     Object {
       "id": 1,
       "label": "START
-r
 a
 b
 a >= b
@@ -6120,7 +6123,6 @@ Object {
     Object {
       "id": 1,
       "label": "START
-r
 a
 b
 a == b
@@ -6150,7 +6152,6 @@ Object {
     Object {
       "id": 1,
       "label": "START
-r
 a
 b
 a === b
@@ -6180,7 +6181,6 @@ Object {
     Object {
       "id": 1,
       "label": "START
-r
 a
 b
 a != b
@@ -6210,7 +6210,6 @@ Object {
     Object {
       "id": 1,
       "label": "START
-r
 a
 b
 a !== b
@@ -6240,7 +6239,6 @@ Object {
     Object {
       "id": 1,
       "label": "START
-r
 a
 r = a
 b
@@ -7100,7 +7098,6 @@ Object {
     Object {
       "id": 1,
       "label": "START
-x
 foobar1
 foobar1()
 foobar2
