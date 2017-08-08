@@ -231,7 +231,7 @@ export class CfgBuilder {
     whileConditionStartBlockPlaceholder.addSuccessor(whileConditionStartBlock);
     whileConditionStartBlock.loopingStatement = doWhileLoop;
     this.breakables.pop();
-    return doBlockStart;
+    return this.createBlockPredecessorOf(doBlockStart);
   }
 
   private buildWhileStatement(current: CfgBlock, whileLoop: ts.WhileStatement): CfgBlock {
@@ -247,7 +247,7 @@ export class CfgBuilder {
     loopBottom.addSuccessor(loopStartPlaceholder);
     loopStartPlaceholder.loopingStatement = whileLoop;
     this.breakables.pop();
-    return loopStartPlaceholder;
+    return this.createBlockPredecessorOf(loopStartPlaceholder);
   }
 
   private createWhileRootBlock(
@@ -321,7 +321,7 @@ export class CfgBuilder {
     }
 
     this.breakables.pop();
-    return loopStart;
+    return this.createBlockPredecessorOf(loopStart);
   }
 
   private buildIfStatement(current: CfgBlock, ifStatement: ts.IfStatement): CfgBlock {
