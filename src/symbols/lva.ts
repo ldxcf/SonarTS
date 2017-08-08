@@ -39,18 +39,15 @@ export class LiveVariableAnalyzer {
           blocks.unshift(...block.predecessors);
         }
       }
-      const mergedLive = this.merge(newLive, oldLive);
-      this.blocksReads.set(block, mergedLive);
+      this.blocksReads.set(block, newLive);
     }
   }
 
   private analyzeBlock(block: CfgBlock) {
     const availableReads = this.collectAvailableReads(block);
-    console.log(block.getLabel() + " received : " + report(availableReads));
     [...block.getElements()].reverse().forEach(node => {
       const usage = this.symbols.getUsage(nodeOrAssignmentIdentifier(node));
       if (usage) {
-        const position = node.getSourceFile().getLineAndCharacterOfPosition(node.getEnd());
         if (usage.is(UsageFlag.WRITE)) {
           if (availableReads.has(usage.symbol)) {
             usage.dead = false;
@@ -62,10 +59,8 @@ export class LiveVariableAnalyzer {
         if (usage.is(UsageFlag.READ)) {
           availableReads.set(usage.symbol, usage);
         }
-        console.log((position.line + 1) + "," + position.character + " " + node.getText() + " : " + usage.flagsAsString() + " dead:" + usage.dead);
       }
     });
-    console.log(block.getLabel() + " resulted : " + report(availableReads));
     return availableReads;
 
     function nodeOrAssignmentIdentifier(node: ts.Node): ts.Node | ts.Identifier {
@@ -99,19 +94,4 @@ export class LiveVariableAnalyzer {
     return true;
   }
 
-  private merge(newLive: Map<ts.Symbol, Usage>, oldLive: Map<ts.Symbol, Usage> | undefined) {
-    if (oldLive === undefined) return newLive;
-    oldLive.forEach((usage, symbol) => {
-      newLive.set(symbol, usage);
-    });
-    return newLive;
-  }
-}
-
-function report(availableReads: Map<ts.Symbol, Usage>) {
-  let result = "";
-  availableReads.forEach((_, symbol) => {
-    result += symbol.name + " ";
-  });
-  return "[" + result + "]";
 }
