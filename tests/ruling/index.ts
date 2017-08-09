@@ -20,6 +20,16 @@
 import * as minimist from "minimist";
 import * as utils from "./ruling";
 
+if (utils) {
+  console.log(1);
+} else {
+  console.log(1);
+}
+
+if (1 > 1) {
+  
+}
+
 const argv = minimist(process.argv.slice(2), {
   string: ["rule"],
   boolean: ["update"],

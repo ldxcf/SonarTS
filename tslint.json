@@ -1,19 +1,19 @@
 {
-    "defaultSeverity": "error",
-    "extends": [
-        "tslint:recommended", "tslint-sonarts"
-    ],
-    "jsRules": {},
-    "rules": {
-        "interface-name": [true, "never-prefix"],
-        "member-ordering": [false],
-        "no-console": [false],
-        "no-bitwise": false,
-        "arrow-parens": [false],
-        "max-classes-per-file": [false],
-        "object-literal-sort-keys": false,
-        "curly": false,
-        "max-line-length": [true, 160]
-    },
-    "rulesDirectory": []
+  "defaultSeverity": "error",
+  "extends": ["tslint:recommended", "tslint-sonarts"],
+  "jsRules": {},
+  "rules": {
+    "interface-name": [true, "never-prefix"],
+    "member-ordering": [false],
+    "no-console": [false],
+    "no-bitwise": false,
+    "arrow-parens": [false],
+    "max-classes-per-file": [false],
+    "object-literal-sort-keys": false,
+    "curly": false,
+    "max-line-length": [true, 160],
+    "forin": false,
+    "only-arrow-functions": [false]
+  },
+  "rulesDirectory": []
 }

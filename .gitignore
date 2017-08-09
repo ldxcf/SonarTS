@@ -7,3 +7,4 @@ node_modules/
 coverage/
 lib/
 yarn-error.log
+language-service/node_modules

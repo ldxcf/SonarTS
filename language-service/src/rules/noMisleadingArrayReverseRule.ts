@@ -92,8 +92,13 @@ class Walker extends tslint.ProgramAwareRuleWalker {
   }
 
   private isGetAccessor(node: ts.Node): boolean {
-    const { declarations } = this.getTypeChecker().getSymbolAtLocation(node);
-    return declarations != null && declarations.length === 1 && declarations[0].kind === ts.SyntaxKind.GetAccessor;
+    const symbol = this.getTypeChecker().getSymbolAtLocation(node);
+    if (symbol) {
+      const { declarations } = symbol;
+      return declarations != null && declarations.length === 1 && declarations[0].kind === ts.SyntaxKind.GetAccessor;
+    } else {
+      return false;
+    }
   }
 
   private isIdentifierOrPropertyAccessExpression(node: ts.Node): boolean {

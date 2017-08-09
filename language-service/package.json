@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "tslint": "^5.6.0",
+    "typescript": "2.3.2"
+  },
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "name": "sonarts-language-service",
+  "version": "0.0.1"
+}
