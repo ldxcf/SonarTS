@@ -25,6 +25,21 @@ export function keyword(node: ts.BreakOrContinueStatement | ts.ThrowStatement | 
   return node.getFirstToken();
 }
 
+export function isAssignment(node: ts.Node | undefined): node is ts.BinaryExpression {
+  return (
+    !!node &&
+    node.kind === ts.SyntaxKind.BinaryExpression &&
+    (node as ts.BinaryExpression).operatorToken.kind === ts.SyntaxKind.EqualsToken
+  );
+}
+
+export function retrievePureIdentifier(node: ts.Node): ts.Identifier | undefined {
+  if (node.kind === ts.SyntaxKind.Identifier) return node as ts.Identifier;
+  if (node.kind === ts.SyntaxKind.ParenthesizedExpression)
+    return retrievePureIdentifier((node as ts.ParenthesizedExpression).expression);
+  return undefined;
+}
+
 export function getComments(node: ts.Node): ts.CommentRange[] {
   return [...getCommentsBefore(node), ...getCommentsAfter(node)];
 }
@@ -67,7 +82,8 @@ export function lineAndCharacter(pos: number, file: ts.SourceFile): ts.LineAndCh
   return file.getLineAndCharacterOfPosition(pos);
 }
 
-export function is(node: ts.Node, ...kinds: ts.SyntaxKind[]): boolean {
+export function is(node: ts.Node | undefined, ...kinds: ts.SyntaxKind[]): boolean {
+  if (!node) return false;
   for (const kind of kinds) {
     if (node.kind === kind) {
       return true;
@@ -95,6 +111,20 @@ export function firstAncestor(
   boundary = FUNCTION_LIKE,
 ): ts.Node | undefined {
   return ancestorsChain(node, boundary).find(ancestor => targetAncestor.includes(ancestor.kind));
+}
+
+export function floatToTopParenthesis(node: ts.Node): ts.Node {
+  if (is(node, ts.SyntaxKind.ParenthesizedExpression)) {
+    if (node.parent) return floatToTopParenthesis(node.parent);
+    return node;
+  }
+  return node;
+}
+
+export function drillDownThroughParenthesis(node: ts.Node): ts.Node {
+  if (is(node, ts.SyntaxKind.ParenthesizedExpression))
+    return drillDownThroughParenthesis((node as ts.ParenthesizedExpression).expression);
+  return node;
 }
 
 export function descendants(node: ts.Node): ts.Node[] {
