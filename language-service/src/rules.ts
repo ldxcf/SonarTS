@@ -1,6 +1,7 @@
 import { Rule as noAllDuplicatedBranchesRule } from "./rules/noAllDuplicatedBranchesRule";
 import { Rule as noArrayDeleteRule } from "./rules/noArrayDeleteRule";
 import { Rule as noCollectionSizeMischeckRule } from "./rules/noCollectionSizeMischeckRule";
+import { Rule as noDeadStoreRule } from "./rules/noDeadStoreRule";
 import { Rule as noDuplicatedBranchesRule } from "./rules/noDuplicatedBranchesRule";
 import { Rule as noEmptyDestructuringRule } from "./rules/noEmptyDestructuringRule";
 import { Rule as noIdenticalConditionsRule } from "./rules/noIdenticalConditionsRule";
@@ -20,6 +21,7 @@ export default [
   noAllDuplicatedBranchesRule,
   noArrayDeleteRule,
   noCollectionSizeMischeckRule,
+  noDeadStoreRule,
   noDuplicatedBranchesRule,
   noEmptyDestructuringRule,
   noIdenticalConditionsRule,
