@@ -12,13 +12,18 @@ function nok() {
 }
 
 function nok2() {
-    let x = new Array();
+    let arrayConstructor = new Array();
+//      ^ {{Either use this array's contents or remove the array.}}
+
+    arrayConstructor[1] = 42;
+}
+
+function nok3() {
+    let x = Array();
 //      ^ {{Either use this array's contents or remove the array.}}
 
     x[1] = 42;
-    x[2] += 42;
 }
-
 
 // OK
 

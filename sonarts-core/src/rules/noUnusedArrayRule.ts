@@ -56,11 +56,12 @@ export class Rule extends tslint.Rules.TypedRule {
       })
       .filter(symbol => {
         const declaration = Rule.getDeclaration(symbol, symbols);
-        if (declaration && declaration.parent && is(declaration.parent, ts.SyntaxKind.VariableDeclaration)) {
-          const varDeclaration = declaration.parent as ts.VariableDeclaration;
-          return !varDeclaration.initializer || is(varDeclaration.initializer, ts.SyntaxKind.ArrayLiteralExpression);
+        if (declaration) {
+          const varDeclaration = firstAncestor(declaration, [ts.SyntaxKind.VariableDeclaration]) as ts.VariableDeclaration;
+          if (varDeclaration) {
+            return !varDeclaration.initializer || Rule.isArrayLiteral(varDeclaration.initializer)
+          }
         }
-
         return true;
        })
       .filter(symbol => !symbols.allUsages(symbol).some(usage => Rule.isReadUsage(usage)))
@@ -92,7 +93,7 @@ export class Rule extends tslint.Rules.TypedRule {
   private static writeValue(statement: ts.ExpressionStatement, usage: Usage): boolean {
     if (is(statement.expression, ts.SyntaxKind.BinaryExpression)) {
       const binaryExpression = statement.expression as ts.BinaryExpression;
-      return is(binaryExpression.operatorToken,  ts.SyntaxKind.EqualsToken) && binaryExpression.left === usage.node && is(binaryExpression.right, ts.SyntaxKind.ArrayLiteralExpression);
+      return is(binaryExpression.operatorToken,  ts.SyntaxKind.EqualsToken) && binaryExpression.left === usage.node && Rule.isArrayLiteral(binaryExpression.right);
     }
 
     return false;
@@ -149,5 +150,17 @@ export class Rule extends tslint.Rules.TypedRule {
     const usage = symbols.allUsages(symbol)[0];
     const type = typeChecker.getTypeAtLocation(usage.node);
     return !!type.symbol && type.symbol.name === "Array";
+  }
+
+  private static isArrayLiteral(node: ts.Node): boolean {
+    if (is(node, ts.SyntaxKind.ArrayLiteralExpression)) {
+      return true;
+    }
+
+    if (is(node, ts.SyntaxKind.CallExpression)) {
+      return (node as ts.CallExpression).expression.getFullText() === "Array";
+    }
+
+    return false;
   }
 }
